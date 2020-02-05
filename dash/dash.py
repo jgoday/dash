@@ -1999,6 +1999,11 @@ class Dash(object):
             dev_tools_prune_errors,
         )
 
+        if os.getenv("DASH_HOST"):
+            flask_run_options["host"] = flask_run_options.get(
+                "host", os.getenv("DASH_HOST")
+            )
+
         if self._dev_tools.silence_routes_logging:
             # Since it's silenced, the address doesn't show anymore.
             host = flask_run_options.get("host", "127.0.0.1")
