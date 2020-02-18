@@ -92,13 +92,14 @@ function triggerDefaultState(dispatch, getState) {
     const inputNodeIds = [];
     allNodes.reverse();
     allNodes.forEach(nodeId => {
-        const componentId = nodeId.split('.')[0];
+        const [componentId, propertyName] = nodeId.split('.');
         /*
          * Filter out the outputs,
          * inputs that aren't leaves,
          * and the invisible inputs
          */
         if (
+            propertyName !== "pathname" &&
             InputGraph.dependenciesOf(nodeId).length > 0 &&
             InputGraph.dependantsOf(nodeId).length === 0 &&
             has(componentId, getState().paths)
